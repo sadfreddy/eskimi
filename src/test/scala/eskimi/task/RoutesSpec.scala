@@ -18,7 +18,7 @@ import monocle.macros.syntax.lens._
 
 class CampaignMatcherSpec extends AnyFlatSpec with Matchers with ScalaFutures with ScalatestRouteTest with TestScope {
 
-/*  it should "send 204 code if bid is not matched" in {
+  it should "send 204 code if bid is not matched" in {
     setupCampaigns()
 
     val bidRequestEntity = Marshal(bidRequest).to[MessageEntity].futureValue
@@ -27,7 +27,7 @@ class CampaignMatcherSpec extends AnyFlatSpec with Matchers with ScalaFutures wi
     request ~> bidRoutes ~> check {
       assert(status == StatusCodes.NoContent)
     }
-  }*/
+  }
 
   it should "send bidResponse if bid is matched" in {
     setupCampaigns()
