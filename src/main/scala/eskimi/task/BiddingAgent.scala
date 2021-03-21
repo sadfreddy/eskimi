@@ -68,9 +68,6 @@ object BiddingAgent {
         .toList
     }
 
-    println("hello")
-    println(allCampaigns)
-
     (filterByCountry andThen filterBySiteId andThen filterByBanners) (allCampaigns)
   }
 
