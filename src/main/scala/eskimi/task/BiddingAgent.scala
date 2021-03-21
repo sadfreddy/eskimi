@@ -41,7 +41,7 @@ object BiddingAgent {
   }
 
   private def getRandomValue[T](list: List[T]): Option[T] = {
-    list.lift(random.nextInt(list.size))
+    if (list.nonEmpty) list.lift(random.nextInt(list.size)) else None
   }
 
   private def filterCampaigns(allCampaigns: List[Campaign], bidRequest: BidRequest): List[Campaign] = {
@@ -67,6 +67,9 @@ object BiddingAgent {
         .keys
         .toList
     }
+
+    println("hello")
+    println(allCampaigns)
 
     (filterByCountry andThen filterBySiteId andThen filterByBanners) (allCampaigns)
   }

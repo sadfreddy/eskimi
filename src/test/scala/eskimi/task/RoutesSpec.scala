@@ -9,6 +9,7 @@ import eskimi.task.JsonFormats._
 import eskimi.task.BidMsg.Banner
 import eskimi.task.BidMsg.In.Campaign.Targeting
 import eskimi.task.BidMsg.In._
+import eskimi.task.BidMsg.Out.BidResponse
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -17,6 +18,7 @@ import monocle.macros.syntax.lens._
 
 
 class CampaignMatcherSpec extends AnyFlatSpec with Matchers with ScalaFutures with ScalatestRouteTest with TestScope {
+
 
   it should "send 204 code if bid is not matched" in {
     setupCampaigns()
@@ -39,6 +41,8 @@ class CampaignMatcherSpec extends AnyFlatSpec with Matchers with ScalaFutures wi
 
     request ~> bidRoutes ~> check {
       assert(status == StatusCodes.OK)
+
+      assert(entityAs[BidResponse].banner.nonEmpty)
     }
   }
 }
@@ -88,7 +92,7 @@ sealed trait TestScope {
         id = "campaignId1",
         country = "LT",
         targeting = Targeting(
-          targetedSiteIds = List("siteId1, siteId2, siteId3")
+          targetedSiteIds = LazyList("siteId1, siteId2, siteId3")
         ),
         banners = List(
           Banner(
@@ -110,7 +114,7 @@ sealed trait TestScope {
         id = "campaignId2",
         country = "PL",
         targeting = Targeting(
-          targetedSiteIds = List("siteId5", "siteId6", "siteId7")
+          targetedSiteIds = LazyList("siteId5", "siteId6", "siteId7")
         ),
         banners = List(
           Banner(

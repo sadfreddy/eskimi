@@ -48,7 +48,7 @@ object BidMsg {
     )
 
     object Campaign {
-      final case class Targeting(targetedSiteIds: List[String])
+      final case class Targeting(targetedSiteIds: LazyList[String])
     }
   }
 
